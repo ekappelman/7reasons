@@ -17,7 +17,7 @@ df <- data.frame(Year = as.double(time(EUst)),German= as.double(EUst[,1]),Swiss 
 ggplot(df,aes(x=Year))+
   geom_line(aes(y=df$Swiss,col="Swiss"))+
   geom_line(aes(y=df$German,col="German"))+
-  labs(color="",y="Euros",title="Geman and Swiss Stock Time Series Comparison")
+  labs(color="",y="Euros",title="German and Swiss Stock Time Series Comparison")
 
 iris <- iris
 wssplot <- function(data, nc=15, seed=1234){
@@ -27,16 +27,19 @@ wssplot <- function(data, nc=15, seed=1234){
     wss[i] <- sum(kmeans(data, centers=i)$withinss)}
   plot(1:nc, wss, type="b", xlab="Number of Clusters",
        ylab="Within groups sum of squares")}
-fit <- kmeans(iris[,1:4], 4)
+fit <- kmeans(iris[,1:4], 3)
 iris$Cluster <- fit$cluster
 par(mfrow=c(1,2))
 plot(iris$Sepal.Length,iris$Sepal.Width,col=iris$Cluster,pch=16,xlab="Sepal Length",ylab="Sepal Width",
      main="Iris Data Colored by Cluster")
-legend("topright",legend=c(1:4),col=c(1:4),pch=16)
+legend("topright",legend=c(1:3),col=c(1:3),pch=16)
 plot(iris$Sepal.Length,iris$Sepal.Width,col=iris$Species,pch=16,xlab="Sepal Length",ylab="Sepal Width",
      main="Iris Data Colored by Species")
 legend("topright",legend=levels(iris$Species),col=c(1:3),pch=16)
 par(mfrow=c(1,1))
-
+ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+
+  geom_point(aes(colour=Species))+
+  facet_grid(Cluster~.)+
+  labs(x="Sepal Length",y="Sepal Width",title="Iris Species-Cluster Relationship")
 
 

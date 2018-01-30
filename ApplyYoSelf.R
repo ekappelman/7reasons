@@ -48,6 +48,6 @@ df2 <- data.frame(A=sample(as.character(c(1:100)),1000,replace=T),B=sample(as.ch
            E=sample(as.character(c(1:100)),1000,replace=T),F=sample(as.character(c(1:100)),1000,replace=T))
 df2[,1:6] <- apply(df2,1,as.numeric)
 
-vars <- apply(df2,1,var) 
+vars <- apply(df2,2,var) 
 vars
 
